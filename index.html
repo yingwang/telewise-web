@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telewise — Telegram on Your Wrist</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            line-height: 1.6;
+        }
+
+        a { color: #58a6ff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: #8b949e;
+            margin-bottom: 32px;
+        }
+
+        .hero .cta {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #238636;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .hero .cta:hover {
+            background: #2ea043;
+            text-decoration: none;
+        }
+
+        /* Screenshots */
+        .screenshots {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .screenshots h2 {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+        }
+
+        .screenshot-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .screenshot-grid img {
+            width: 140px;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .screenshot-grid img:hover {
+            transform: scale(1.08);
+            cursor: pointer;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Features */
+        .features {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .feature-item {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            color: #8b949e;
+            font-size: 0.95rem;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 60px 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq h2 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #30363d;
+            padding: 20px 0;
+        }
+
+        .faq-item h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: #e6edf3;
+        }
+
+        .faq-item p {
+            color: #8b949e;
+            font-size: 0.95rem;
+        }
+
+        /* Feedback */
+        .feedback {
+            padding: 60px 20px;
+            text-align: center;
+            background: #161b22;
+        }
+
+        .feedback h2 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .feedback p {
+            color: #8b949e;
+            margin-bottom: 24px;
+        }
+
+        .feedback .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #1f6feb;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .feedback .btn:hover {
+            background: #388bfd;
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            color: #8b949e;
+            font-size: 0.85rem;
+        }
+
+        footer a { color: #8b949e; }
+        footer a:hover { color: #e6edf3; }
+
+        .footer-links {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            margin: 0 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .tagline { font-size: 1rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .screenshot-grid img { width: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Telewise</h1>
+        <p class="tagline">Telegram on Your Wrist</p>
+        <p style="color: #8b949e; max-width: 550px; margin: 0 auto 32px;">
+            A standalone Wear OS client for Telegram. Read, reply, and manage all your chats directly from your smartwatch — no phone needed.
+        </p>
+        <img src="images/promo.jpg" alt="Telewise overview" style="max-width: 700px; width: 90%; border-radius: 12px; margin-bottom: 32px;">
+        <br>
+        <a class="cta" href="https://play.google.com/store/apps/details?id=com.telewise" target="_blank">Get it on Google Play</a>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="screenshots">
+        <h2>See it in action</h2>
+        <div class="screenshot-grid">
+            <img src="images/newmessage.png" alt="Chat list with new message button">
+            <img src="images/chatlist.png" alt="Chat list">
+            <img src="images/conversation.png" alt="Conversation view">
+            <img src="images/reply.png" alt="Reply with text or voice">
+            <img src="images/quickreply.png" alt="Quick reply options">
+            <img src="images/search.png" alt="Search contacts">
+            <img src="images/textinput.png" alt="Text input">
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <h2>Features</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>Standalone</h3>
+                <p>Works independently on your watch. No phone pairing required.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Voice & Keyboard</h3>
+                <p>Reply with voice input, on-screen keyboard, emoji, or preset quick replies.</p>
+            </div>
+            <div class="feature-item">
+                <h3>QR Code Login</h3>
+                <p>Scan a QR code with your phone to log in. No typing on tiny screens.</p>
+            </div>
+            <div class="feature-item">
+                <h3>All Your Chats</h3>
+                <p>Access all conversations, groups, and channels. Search contacts and start new chats.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Notifications</h3>
+                <p>Get message notifications on your watch while the app is running.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Private & Secure</h3>
+                <p>Built with Telegram's official TDLib. Messages go directly to Telegram servers. No intermediary, no data collection.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <h2>FAQ</h2>
+
+        <div class="faq-item">
+            <h3>Do I need a phone to use Telewise?</h3>
+            <p>Only for the initial login — scan a QR code with your phone's Telegram app once. After that, Telewise runs fully standalone on your watch with Wi-Fi or LTE.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I log in?</h3>
+            <p>Open Telewise on your watch, scan the QR code with your phone's Telegram app, and you're in.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Which watches are supported?</h3>
+            <p>Any watch running Wear OS 3.0 or later (e.g., Google Pixel Watch, Samsung Galaxy Watch 4+).</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Is my data safe?</h3>
+            <p>Yes. Telewise uses Telegram's official TDLib library. Your messages go directly to Telegram's servers. We don't collect, store, or share any personal data.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I use it with Telegram bots?</h3>
+            <p>Absolutely. Chat with any Telegram bot — Claude Code, OpenClaw, BotFather, CI/CD bots, and more — right from your wrist.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Do notifications work in the background?</h3>
+            <p>Currently, notifications are delivered while the app is in the foreground. Background notification support is on the roadmap.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I get early access to new features?</h3>
+            <p>We're looking for dogfooders to help shape the app. Reach out if you're interested in testing upcoming features and providing feedback.</p>
+        </div>
+    </section>
+
+    <!-- Feedback -->
+    <section class="feedback">
+        <h2>Feedback</h2>
+        <p>Found a bug? Have a feature request? We'd love to hear from you.</p>
+        <a class="btn" href="https://forms.gle/BLr8ziTCUQ41xrUf8" target="_blank">Send Feedback</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://play.google.com/store/apps/details?id=com.telewise" target="_blank">Google Play</a>
+            <a href="https://yingwang.github.io/telewise-site/" target="_blank">Privacy Policy</a>
+            <a href="mailto:xingqiwang@gmail.com">Contact</a>
+        </div>
+        <p>&copy; 2026 Ying Wang. All rights reserved.</p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        document.querySelectorAll('.screenshot-grid img').forEach(img => {
+            img.addEventListener('click', () => {
+                document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('lightbox').classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
